@@ -66,12 +66,50 @@
 			}
 		});
 		
+		
+		var BookForm =  React.createClass({
+			
+			render:function(){
+				return (
+					<form method="POST" action="/register">
+						<h1>Add new book</h1>
+						<InputBox type="text" placeholder="Nombre" name="nombre"/>
+						<InputBox type="text" placeholder="autor" name="autor"/>
+						<InputBox type="text" placeholder="descripcion" name="descripcion"/>
+						<InputBox type="text" placeholder="genero" name="genero"/>
+						<InputBox type="text" placeholder="ISBN" name="isbn"/>
+						<InputBox type="submit" value="submit"/>
+					</form>
+				)
+			}
+		});
+		
+		var BookList =  React.createClass({
+			
+			render:function(){
+				return (
+					<form method="POST" action="/register">
+						<h1>Add new book</h1>
+						<InputBox type="text" placeholder="Nombre" name="nombre"/>
+						<InputBox type="text" placeholder="autor" name="autor"/>
+						<InputBox type="text" placeholder="descripcion" name="descripcion"/>
+						<InputBox type="text" placeholder="genero" name="genero"/>
+						<InputBox type="text" placeholder="ISBN" name="isbn"/>
+						<InputBox type="submit" value="submit"/>
+					</form>
+				)
+			}
+		});
+		
+		
 		ReactDOM.render(
 			<div>
 				
 				<LoginForm url="/api/comments" pollInterval={2000} />
 				<hr/>
 				<RegisterForm />
+				<hr/>
+				<BookForm />
 			</div>
 			,
 		  document.getElementById('content')
