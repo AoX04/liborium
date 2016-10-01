@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Tutorial</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+     <!--  <script type="text/babel" src="scripts/example.js"></script>  -->
+    <script type="text/babel">
+
+		var InputBox = React.createClass({
+			updateHandler:function(e){
+				var updt  = {};
+				updt[e.target.name] = e.target.value;
+				this.setState(updt);
+				console.log(updt);
+			},
+			render: function (){
+				return(
+					<div className="InputBox">
+						<input 
+							type={this.props.type}
+							placeholder={this.props.placeholder || "" }
+							name={this.props.name}
+							onChange={this.updateHandler}
+						/>
+					</div>
+				)
+			}
+			
+		});
+		
+		var LoginForm =  React.createClass({
+			render:function(){
+				return (
+					<form method="POST" action="/login">
+						<h1>Login</h1>
+						<InputBox type="email" placeholder="email" name="email"/>
+						<InputBox type="password" placeholder="password" name="password"/>
+						<InputBox type="submit" value="submit"/>
+					</form>
+				)
+			}
+		});
+		
+		var RegisterForm =  React.createClass({
+			
+			render:function(){
+				return (
+					<form method="POST" action="/register">
+						<h1>Register</h1>
+						<InputBox type="email" placeholder="email" name="email"/>
+						<InputBox type="password" placeholder="password"  name="password"/>
+						<InputBox type="password" placeholder="confirm password" name="password_2"/>
+						<InputBox type="submit" value="submit"/>
+					</form>
+				)
+			}
+		});
+		
+		ReactDOM.render(
+			<div>
+				
+				<LoginForm url="/api/comments" pollInterval={2000} />
+				<hr/>
+				<RegisterForm />
+			</div>
+			,
+		  document.getElementById('content')
+		);
+
+    </script>
+  </body>
+</html>
