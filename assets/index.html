@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Tutorial</title>
+    <title>Liborium</title>
     <!-- Not present in the tutorial. Just for basic styling. -->
     <link rel="stylesheet" href="css/base.css" />
     <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
@@ -10,12 +10,92 @@
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+	<script src="https://npmcdn.com/react-router/umd/ReactRouter.min.js"></script>
+	
+	<script src="material-ui/material-ui.js"></script>
+	<style>
+		body {
+		  background-color: #FFCC00;
+		  padding: 20px;
+		  margin: 0;
+		}
+		h1, h2, p, ul, li {
+		  font-family: Helvetica, Arial, sans-serif;
+		}
+		ul.header li {
+		  display: inline;
+		  list-style-type: none;
+		  margin: 0;
+		}
+		ul.header {
+		  background-color: #111;
+		  padding: 0;
+		}
+		ul.header li a {
+		  color: #FFF;
+		  font-weight: bold;
+		  text-decoration: none;
+		  padding: 20px;
+		  display: inline-block;
+		}
+		.content {
+		  background-color: #FFF;
+		  padding: 20px;
+		}
+		.content h2 {
+		  padding: 0;
+		  margin: 0;
+		}
+		.content li {
+		  margin-bottom: 10px;
+		}
+		.active {
+		  background-color: #0099FF;
+		}
+	</style>
   </head>
   <body>
     <div id="content"></div>
      <!--  <script type="text/babel" src="scripts/example.js"></script>  -->
     <script type="text/babel">
-
+		
+		var { Router,
+			  Route,
+			  IndexRoute,
+			  IndexLink,
+			  Link } = ReactRouter;
+	
+		var App = React.createClass({
+			render: function() {
+			return (
+				<div>
+					<h1>Liborium </h1>
+					<ul className="header">
+						<li><IndexLink to="/" activeClassName="active">Home</IndexLink ></li>
+						<li><Link to="/Login" activeClassName="active">Login</Link></li>
+						<li><Link to="/Register" activeClassName="active">SignUp</Link></li>
+						<li><Link to="/BookForm" activeClassName="active">Add book</Link></li>
+					</ul>
+					<div className="content">
+						{this.props.children}
+					</div>
+				</div>
+			)}
+		});
+				
+		var Home = React.createClass({
+		  render: function() {
+			  return (
+				<div>
+				  <h2>HELLO</h2>
+				  <p>Liborium sistema de administracion de Bibliotecas! </p>
+		  
+				  
+				</div>
+			  );
+			}
+		});
+		
 		var InputBox = React.createClass({
 			updateHandler:function(e){
 				var updt  = {};
@@ -37,6 +117,7 @@
 			}
 			
 		});
+		
 		
 		var LoginForm =  React.createClass({
 			render:function(){
@@ -102,16 +183,32 @@
 		});
 		
 		
+		/*
+			ReactDOM.render(
+				<div>
+					
+					
+					<LoginForm url="/api/comments" pollInterval={2000} />
+					<hr/>
+					<RegisterForm />
+					<hr/>
+					<BookForm />
+				</div>
+				,
+			  document.getElementById('content')
+			);
+		*/
+		
 		ReactDOM.render(
-			<div>
-				
-				<LoginForm url="/api/comments" pollInterval={2000} />
-				<hr/>
-				<RegisterForm />
-				<hr/>
-				<BookForm />
-			</div>
-			,
+		  <Router>
+			<Route path="/" component={App}>
+			  <IndexRoute component={Home} />
+			  <Route path="Login" component={LoginForm}>
+			  </Route>
+			  <Route path="Register" component={RegisterForm} />
+			  <Route path="BookForm" component={BookForm} />
+			</Route>
+		  </Router>,
 		  document.getElementById('content')
 		);
 
