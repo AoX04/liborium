@@ -33,6 +33,9 @@ module.exports.policies = {
   },
     'BookController': {
     '*': 'isAuthenticated'
+  },
+    'LibraryController': {
+    '*': 'isAuthenticated'
   }
 
   /***************************************************************************
